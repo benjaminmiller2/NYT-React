@@ -1,40 +1,78 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import API from './../../utils/API';
+import Article from './../../Components/Article';
 
 class Home extends Component {
     state = {
         articles: [],
+        savedArticles: [],
         q: "",
         start_year: "",
         end_year: "",
-    };
-
-    componentDidMount(){
+    }
+    
+    // lifecycles
+    componentDidMount() {
         this.getArticles();
+        this.getSavedArticles();
     }
 
-    //methods
+    // my methods
     getArticles = () => {
         API.getArticles({
             q: this.state.q,
             start_year: this.state.start_year,
-            end_year: this.state.end_year,
+            end_year: this.state.end_year
         })
-        .then(res => 
-        this.setState({
-            articles: res.data,
-        })
-    ).catch(err => console.log(err));
+        .then(res =>
+            this.setState({
+                articles: res.data,
+            })
+        )
+        .catch(err => console.log(err));
     }
 
-    render(){
+    //save an article
+    handleArticleSave = id => {
+        const article = this.state.articles.find(article => article._id === id);
+        API.saveArticle(article).then(res => {this.getSavedArticles();this.getArticles()});
+    }
+
+    //display saved articles
+    getSavedArticles = () => {
+        API.getSavedArticles()
+            .then(res =>
+            this.setState({
+                savedArticles: res.data
+            })
+        )
+        .catch(err => console.log(err));
+    }
+
+    render() {
         return (
             <div>
-                <p>I'm a list of articles</p>
+                <p>Articles</p>
                 {this.state.articles.map(article => (
-                    <div>{article.headline.main}
-                    </div>
+                    <Article
+                        key={article._id}
+                        _id={article._id}
+                        title={article.headline.main}
+                        url={article.web_url}
+                        date={article.pub_date}
+                        handleClick={this.handleArticleSave}
+                        buttonText="Save Article"
+                    />
                 ))}
+                <p>Saved Articles</p>
+                {this.state.savedArticles.map(article => (
+                    <Article
+                        key={article._id}
+                        _id={article._id}
+                        title={article.title}
+                        buttonText="Delete Article"
+                    />
+                ))}                
             </div>
         );
     };
