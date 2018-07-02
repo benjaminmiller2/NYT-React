@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import API from './../../utils/API';
 import Article from './../../Components/Article';
 
+
+
 class Home extends Component {
     state = {
         articles: [],
@@ -49,10 +51,25 @@ class Home extends Component {
         .catch(err => console.log(err));
     }
 
+    // When delete article button is clicked, remove article from db
+    handleArticleDelete = (id) => {
+        API.deleteArticle(id)
+            .then(this.getSavedArticles());
+    }
+
     render() {
         return (
             <div>
-                <p>Articles</p>
+                <div className="box">
+                    <h1>New York Times Article Search</h1>
+                    <h3>Search for an article</h3>
+                </div>
+                <div>
+                    <h2>Search Bar</h2>
+                </div>
+
+                <div>
+                <h2>Articles</h2>
                 {this.state.articles.map(article => (
                     <Article
                         key={article._id}
@@ -64,15 +81,20 @@ class Home extends Component {
                         buttonText="Save Article"
                     />
                 ))}
-                <p>Saved Articles</p>
+                </div>
+                
+                <div>
+                <h2>Saved Articles</h2>
                 {this.state.savedArticles.map(article => (
                     <Article
                         key={article._id}
                         _id={article._id}
                         title={article.title}
+                        handleClick={this.handleArticleDelete}
                         buttonText="Delete Article"
                     />
-                ))}                
+                ))} 
+                </div>               
             </div>
         );
     };

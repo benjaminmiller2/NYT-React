@@ -9,10 +9,14 @@ getArticles: function(params){
 
 //save article to our db
 saveArticle: function(articleData){
-    return axios.post('/api/articles', articleData)
+    return axios.post('/api/articles', articleData);
 },
 
 getSavedArticles: function(){
     return axios.get('/api/articles')
+},
+
+deleteArticle: function(id) {
+    return axios.delete(`/api/articles/${id}`);
 }
 };
