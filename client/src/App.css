@@ -1,7 +1,84 @@
 body{
-    background-color:whitesmoke;
+    font-family: 'News Cycle', sans-serif;
+    background-color: whitesmoke;
 }
 
-box{
-    background-color: blue
+.header{
+    width: 100%;
+    height: 4em;
+    text-align: center;
+    background-color: white;
+
+}
+
+.container{
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.searchBox{
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+.form{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input{
+    width: 200px;
+    border: 1px solid grey;
+}
+
+.button{
+    width: 100px;
+    height: 25px;
+    margin-top: 2em;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+
+.contentBox{
+    width: 100%;
+    margin-top: 2em;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+}
+
+.articleBox{
+    width: 60%;
+}
+
+.savedArticleBox{
+    width: 30%;
+}
+
+.article{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border: 1px solid black;
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: whitesmoke;
+}
+
+.article:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.footer{
+    width: 100%;
+    height: 1em;
+    margin-top: 1em;
+    text-align: center;
+    bottom: 0;
 }
